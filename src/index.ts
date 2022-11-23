@@ -1,5 +1,5 @@
 import bodyParser from "body-parser";
-import express from "express";
+import express, { Response } from "express";
 
 import { ResultItem } from "./interfaces";
 import providers from "./providers/index.js";
@@ -24,5 +24,17 @@ app.post<
     response.status(404).send({ error: "Provider not found." });
   }
 });
+
+const handleError = (
+  error: unknown,
+  _2: unknown,
+  res: Response<string, Record<string, unknown>>,
+  _3: unknown
+) => {
+  console.error(error);
+  res.status(500).send("Oops, something went wrong.");
+};
+
+app.use(handleError);
 
 app.listen(6512, () => console.log(`Listening on port 6512.`));

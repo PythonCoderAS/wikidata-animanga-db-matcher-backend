@@ -22,10 +22,15 @@ interface Result {
 
 export default class MangaMyanimelist extends Provider {
   constructor() {
-    super(1000);
+    super(1000, { name: "MyAnimeList" });
   }
 
   async getTitle(title: string): Promise<Record<string, ResultItem>> {
+    if (!(/^[\x00-\xFF]*$/.test(title))){
+      // Non extended-ascii string. Per https://myanimelist.net/forum/?topicid=2059238,
+      // skip these.
+      return {};
+    }
     const resp = await axios.get<Result>("https://api.myanimelist.net/v2/manga", {
       params: {
         nsfw: true,
