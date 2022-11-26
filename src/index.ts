@@ -1,5 +1,7 @@
 import bodyParser from "body-parser";
-import express, { Response } from "express";
+import express, { Response, static as expressStatic } from "express";
+import { dirname, join, resolve } from "path";
+import { fileURLToPath } from "url";
 
 import { ResultItem } from "./interfaces";
 import providers from "./providers/index.js";
@@ -25,11 +27,28 @@ app.post<
   }
 });
 
+const distPath = resolve(
+  join(dirname(fileURLToPath(import.meta.url)), "..", "frontend-dist")
+);
+
+app.use(
+  "/assets",
+  expressStatic(join(distPath, "assets"), {
+    etag: true,
+    // 30 days
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  })
+);
+app.get(/.+/, (request, response) =>
+  response.sendFile(join(distPath, "index.html"))
+);
+
 const handleError = (
   error: unknown,
-  _2: unknown,
+  _1: unknown,
   res: Response<string, Record<string, unknown>>,
-  _3: unknown
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _2: unknown
 ) => {
   console.error(error);
   res.status(500).send("Oops, something went wrong.");
@@ -37,4 +56,5 @@ const handleError = (
 
 app.use(handleError);
 
-app.listen(6512, () => console.log(`Listening on port 6512.`));
+const port = parseInt(process.env.PORT ?? "6512", 10);
+app.listen(port, () => console.log(`Listening on port ${port}.`));
