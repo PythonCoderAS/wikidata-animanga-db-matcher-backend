@@ -8,7 +8,7 @@
     "yallist": "^4.0.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
     "@types/yallist": "^4.0.1",
