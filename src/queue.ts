@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import Yallist from "yallist";
 
 import { ResultItem } from "./interfaces";
@@ -31,11 +32,17 @@ export interface QueueConstructorOptions extends QueueInfoConstructorOptions {
 
 export class QueueInfo {
   private ratelimitMs: number;
+
   private afterCallEnds: boolean;
+
   private lastCalledMs = 0;
+
   private lastFinishedMs = 0;
+
   private inCall = false;
+
   private functionQueue: Yallist<(val: boolean) => unknown> = Yallist.create();
+
   constructor(options: QueueInfoConstructorOptions) {
     this.ratelimitMs = options.ratelimitMs;
     this.afterCallEnds = options.afterCallEnds ?? true;
@@ -52,7 +59,6 @@ export class QueueInfo {
     if (timeSinceLastCall < this.ratelimitMs) {
       await sleep(this.ratelimitMs - timeSinceLastCall);
     }
-    return;
   }
 
   public async startCall() {
@@ -85,6 +91,7 @@ export const namedQueues: Record<string, QueueInfo> = {};
 
 export default class Queue {
   private func: ExpectedFunctionType;
+
   private queueInfo: QueueInfo;
 
   constructor(options: QueueConstructorOptions) {
