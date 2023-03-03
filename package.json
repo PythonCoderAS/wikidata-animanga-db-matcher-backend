@@ -10,7 +10,7 @@
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/express": "^4.17.17",
-    "@types/node": "^18.14.2",
+    "@types/node": "^18.14.4",
     "@types/yallist": "^4.0.1",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
