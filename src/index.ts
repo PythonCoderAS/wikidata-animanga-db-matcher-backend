@@ -2,12 +2,14 @@ import bodyParser from "body-parser";
 import express, { Response, static as expressStatic } from "express";
 import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
+import proxy from "express-http-proxy";
 
 import { ResultItem } from "./interfaces";
 import providers from "./providers/index.js";
 
 const app = express();
 
+app.use("/wikidata", proxy("https://www.wikidata.org"));
 app.use(bodyParser.json());
 
 app.post<
