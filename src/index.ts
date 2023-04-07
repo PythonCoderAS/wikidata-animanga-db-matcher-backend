@@ -11,7 +11,7 @@ const app = express();
 
 app.use("/wikidata", proxy("https://www.wikidata.org", {
   userResHeaderDecorator(headers) {
-    return {...headers, "Access-Control-Allow-Origin": headers.referer, "Origin": headers.referer}
+    return {...headers, "Access-Control-Allow-Origin": headers.referer, "Origin": headers.referer?.replace(/\/$/, "")}
   }
 }));
 app.use(bodyParser.json());
