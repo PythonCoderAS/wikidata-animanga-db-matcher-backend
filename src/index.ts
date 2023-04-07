@@ -9,7 +9,11 @@ import providers from "./providers/index.js";
 
 const app = express();
 
-app.use("/wikidata", proxy("https://www.wikidata.org"));
+app.use("/wikidata", proxy("https://www.wikidata.org", {
+  userResHeaderDecorator(headers) {
+    return {...headers, "Access-Control-Allow-Origin": headers.referer, "Origin": headers.referer}
+  }
+}));
 app.use(bodyParser.json());
 
 app.post<
