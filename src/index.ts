@@ -10,8 +10,17 @@ import providers from "./providers/index.js";
 const app = express();
 
 app.use("/wikidata", proxy("https://www.wikidata.org", {
+  proxyReqOptDecorator(proxyReqOpts, srcReq) {
+    return {
+      ...proxyReqOpts,
+      headers: {
+        ...proxyReqOpts.headers,
+        "Origin": srcReq.headers.referer?.replace(/\/$/, "")
+      },
+    };
+  },
   userResHeaderDecorator(headers) {
-    return {...headers, "Access-Control-Allow-Origin": headers.referer, "Origin": headers.referer?.replace(/\/$/, "")}
+    return {...headers, "Access-Control-Allow-Origin": headers.referer}
   }
 }));
 app.use(bodyParser.json());
