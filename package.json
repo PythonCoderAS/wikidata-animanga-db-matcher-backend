@@ -6,7 +6,7 @@
     "express-http-proxy": "^2.0.0",
     "lru-cache": "^10.2.0",
     "ts-node": "^10.9.2",
-    "yallist": "^4.0.0"
+    "yallist": "^5.0.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
