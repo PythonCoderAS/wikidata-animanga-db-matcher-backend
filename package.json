@@ -4,7 +4,7 @@
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
     "express-http-proxy": "^2.0.0",
-    "lru-cache": "^10.2.1",
+    "lru-cache": "^10.2.2",
     "ts-node": "^10.9.2",
     "yallist": "^5.0.0"
   },
